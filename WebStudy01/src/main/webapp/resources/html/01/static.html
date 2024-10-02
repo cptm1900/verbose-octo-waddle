@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<pre>
+--- 정적 자원(고정된 파일)의 형태로 동적 UI를 제공하기 위해 [javascript] 로직을 활용하고 있음
+하드코딩된 텍스트-수정
+<button id="changebtn">다크테마로 변경</button>
+현재 시간(client side) : <span id="timearea"></span>
+현재 시간(server side) : <span id="serverarea"></span>
+</pre>
+<!-- MIME 텍스트 : 전송 컨텐츠의 종류 표현 -->
+<!-- ex) "text/javascript" -->
+<script type="text/javascript">
+	const serverarea = document.getElementById("serverarea");
+	
+	setInterval(()=>{
+	// 비동기 요청
+	fetch("/WebStudy01/now2.do")
+		// 응답이 성공하면 reserve (html,json,xml)
+		// html==>resp.text(), json==>resp.json()
+// 		.then((resp)=>{resp.json()})
+		// 한 문장이면 아래처럼 바디 생략 가능
+		.then((resp)=>resp.json())
+// 		.then((jsonObj)=>{
+// 			serverarea.innerHTML = jsonObj.now;
+// 		})
+		.then((jsonObj)=>serverarea.innerHTML = jsonObj.now)
+		// 응답이 실패하면 reject
+// 		.catch((error)=>console.log(error))
+		.catch(console.log);
+	},1000);
+	
+	const timearea = document.getElementById("timearea");
+	setInterval(()=>{
+		timearea.innerHTML = new Date();
+	}, 1000)
+	
+	const btn = document.getElementById("changebtn");
+	btn.addEventListener("click", (event)=>{
+		document.body.style.backgroundColor="black";
+		document.body.style.color="white";
+	});
+</script>
+</body>
+</html>
