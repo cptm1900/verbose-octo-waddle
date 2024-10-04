@@ -7,6 +7,8 @@
 <title>01/resourceType.jsp</title>
 </head>
 <body>
+<h4><%=application.hashCode()%></h4>
+<h4>contextParam1 : <%=application.getInitParameter("contextParam1")%></h4>
 <h4>자원의 분류</h4>
 <pre>
 	1. 자원의 생성 시점과 서비스 대상에 따른 분류

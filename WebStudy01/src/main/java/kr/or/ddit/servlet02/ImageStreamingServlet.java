@@ -18,6 +18,9 @@ public class ImageStreamingServlet extends HttpServlet{
 		String param = req.getParameter("image");
 //		String imageFileName = "cute4.JPG";
 		String imageFileName = param;
+		if(imageFileName==null || imageFileName.trim().length()==0) {
+			throw new ServletException("필수 파라미터 누락");
+		}
 		// MIME텍스트는 출력을 하기 전에 설정해야함
 //		resp.setContentType("image/jpeg");	// 하드코딩방식이라서 이미지 확장자마다 다 다르므로 안 좋음
 		
@@ -31,6 +34,9 @@ public class ImageStreamingServlet extends HttpServlet{
 		
 		// this : 현재 객체
 		InputStream is = this.getClass().getResourceAsStream(imageLogicalPath);
+		if(is==null) {
+			throw new ServletException("이미지 파일이 없음");
+		}
 		OutputStream out = resp.getOutputStream();
 		byte[] buffer = new byte[1024];
 		int cnt = -1;
