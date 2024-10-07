@@ -1,4 +1,4 @@
-package kr.or.ddit.servlet03;
+package kr.or.ddit.servlet04;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,11 +9,13 @@ import java.util.Optional;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class ImageStreamingServlet extends HttpServlet {
+@WebServlet(value="/movie/streaming.hw", loadOnStartup=1)
+public class MovieStreamingServlet extends HttpServlet {
 	private File folder;
 	private ServletContext application;
 
@@ -21,9 +23,10 @@ public class ImageStreamingServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		application = getServletContext();
-		folder = Optional.ofNullable(application.getInitParameter("imageFolderQN"))
-					.map(qn->this.getClass().getResource(qn))
-					.map(url->url.getFile())
+		folder = Optional.ofNullable(application.getInitParameter("movieFolderQN"))
+					// 물리 경로를 구하고 싶으므로 논리 경로를 구하는 과정을 빼야함
+//					.map(qn->this.getClass().getResource(qn))
+//					.map(url->url.getFile())
 					.map(rp->new File(rp))
 					.orElseThrow(()->new ServletException("폴더가 없음"));
 		System.out.println(folder.getAbsolutePath());
@@ -31,7 +34,7 @@ public class ImageStreamingServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		File imageFile = Optional.ofNullable(req.getParameter("image"))
+		File imageFile = Optional.ofNullable(req.getParameter("movie"))
 									.map(p->new File(folder,p))
 									.filter(f->f.exists())
 									.orElseThrow(()->new ServletException("필수 파라미터 누락"));
