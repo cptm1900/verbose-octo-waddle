@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- href는 본인이 상대 경로의 기준이고 src는 html이 상대 경로의 기준 -->
+<link rel="stylesheet" href="../../css/csr/case5.css" />
+</head>
+<body>
+<form method='get' action='../../../movie/streaming.hw' data-role='movie' data-target-area='#movie-area'>
+	<!-- sub()과 requestSubmit()의 차이 -->
+	<!-- submit()을 발동시키고 전송하는지(requestSubmit()), 그냥 바로 전송되는지(submit())의 차이 -->
+	<!-- 그래서 script로 submit() 제어하려면 requestSubmit()써야됨 -->
+	<!-- required : 필수 파라미터가 누락되면 선택 막음 -->
+	<select name='movie' onchange='this.form.requestSubmit()' required='required'>
+		<!-- value값 없게 함 -->
+		<option value>영상 선택</option>
+	</select>
+</form>
+<form method='get' action='../../../image/streaming.hw' data-role='image' data-target-area='#image-area'>
+	<select name='image' onchange='this.form.requestSubmit()' required>
+		<option value>이미지 선택</option>
+	</select>
+</form>
+<div id="image-area"></div>
+<div id="movie-area"></div>
+<script type="text/javascript" src="../../js/app/csr/case5.js"></script>
+</body>
+</html>
