@@ -53,6 +53,7 @@ How : 정적인 템플릿 요소를 제외한 동적 요소를 작성하는 방�
  	- 싱글톤 인스턴스 생성
  	- _jspService 메소를 실행하여 요청과 응답을 처리함. (재시작하면 여기만 실행)
  	한글자 수정 (수정하면 다시 .java 서블릿 작성부터 다 실행)
+ 	
  	6: EL(expression laguage)
  	7: Custom tag(JSTL)
 </pre>
