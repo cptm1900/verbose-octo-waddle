@@ -42,7 +42,7 @@ public class FormDataProcessServlet extends HttpServlet {
 	 */
 	private void getParametersCase7(HttpServletRequest req) {
 		Map<String, String[]> parameterMap = req.getParameterMap();
-		parameterMap.entrySet().stream().forEach((k,v)->);
+		parameterMap.entrySet().stream().forEach(n->System.out.printf(pattern, n.getKey(), Arrays.toString(n.getValue())));
 	}
 	
 	/**
