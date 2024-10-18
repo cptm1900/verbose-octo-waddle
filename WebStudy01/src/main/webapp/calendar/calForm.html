@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.sunday {
+		color: red;
+	}
+	.saturday {
+		color: blue;
+	}
+	.before, .after {
+		color: silver;
+	}
+	#today {
+		color: green;
+		font-weight: bold;
+	}
+	a:visited  {
+		color: black;
+	}
+	a {
+		color: black;
+		text-decoration: none;
+	}
+</style>
+</head>
+<body>
+<form id="calForm" action="./calendar.jsp">
+	<input type="number" name="year" />
+	<select name="month">
+	</select>
+	<select name="locale">
+	</select>
+	<select name="zone">
+	</select>
+</form>
+<div id="calArea"></div>
+<script type="text/javascript" src="../resources/js/app/calendar/calForm.js"></script>
+</body>
+</html>

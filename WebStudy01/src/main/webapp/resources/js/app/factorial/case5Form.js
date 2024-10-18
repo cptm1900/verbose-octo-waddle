@@ -9,7 +9,7 @@ facForm.addEventListener("submit",(e)=>{
 	options.method = method;	// options 객체에 method 추가
 	// request header : content-type, accept
 	let headers = {
-		accept:"applicaton/json"		// accept : 응답에 대한 희망사항
+		accept:"application/json"		// accept : 응답에 대한 희망사항
 	}
 	options.headers = headers;	// options 객체에 headers 추가
 	
