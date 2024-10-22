@@ -34,7 +34,7 @@
 				%>
 				key1 (line) : <%=request.getParameter("key1")%>
 				key3 (body) : <%=request.getParameter("key3")%>
-		2) 멀티파트 form-data
+		2) 멀티파트 form-data : <a hfef=<%=request.getContextPath()%>"/03/multipartDesc.jsp">Multipart content</a>
 		3) json[xml] payload : <a href="<%=request.getContextPath()%>/03/jsonAndRest.jsp">JSON and Rest</a>
 </pre>
 <pre>

@@ -14,6 +14,7 @@ class EnumTestCase {
 		MULTIPLY('*', (l,r)->l*r),
 		DIVIDE('/', (l,r)->l/r);
 		
+		// 람다식을 쓰려면 특정 함수만 가능해서
 		private OperatorType(char sign, DoubleBinaryOperator operator) {
 			this.sign = sign;
 			this.operator = operator;

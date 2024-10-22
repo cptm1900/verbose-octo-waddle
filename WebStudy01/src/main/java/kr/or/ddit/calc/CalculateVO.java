@@ -27,10 +27,13 @@ public class CalculateVO implements Serializable {	// 직렬화를 하려면 필
 		this.operator = operator;
 	}
 	
+	
+	// get메소드를 쓰면 result를 위에서 선언하지 않아도 result를 선언한 것처럼도 사용이 가능함
 	public double getResult() {
 		return operator.operate(left,right);
 	}
-	
+
+	// get메소드를 쓰면 result를 위에서 선언하지 않아도 result를 선언한 것처럼도 사용이 가능함
 	public String getExpression() {
 		return operator.getExpression(left,right);
 	}
