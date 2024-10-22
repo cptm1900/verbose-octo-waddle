@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="log-area"></div>
+    <script>
+        const logArea = document.getElementById("log-area");
+        function log(message) {
+            // logArea.insertAdjacentHTML("beforeend", `<p>${message}<p>`);
+                console.log(message);
+        }
+        // case2 : 함수의 실행 시점을 지연시키기 위한 lazy loading 구조 setTimeout
+        // --> 지연된 함수 내에서 생성된 데이터를 조회할 수 없음
+        function fnStep1() {
+            log("STEP1");
+        }
+        function fnStep2() {
+            log("STEP2");
+        }
+        function fnStep3() {
+            log("STEP3");
+        }
+
+        // template method pattern
+        function fnTemplate(fnHook) {   // 함수의 매개변수로 함수를 받음 (함수의 레퍼런스)
+            fnStep1();
+            fnStep2();
+            fnHook(log, console.error);
+            fnStep3();
+        }
+        
+        // setTimeout 함수 특성상 return값을 반환할 수 없어서 콜백 함수를 만듦
+        /*
+        function fnMiddle() {
+            setTimeout(()=>{
+                return "step2 와 step3 번 사이의 작업";
+            }, 3000);
+        }
+        */
+
+        // 콜백은 많아지면 무한 콜백 지옥 나옴
+        function fnMiddle(fnCallback, fnFailureCallback) {
+            setTimeout(()=>{
+                let intNum = Math.trunc(Math.random()*100);
+                if(intNum%2==0) {
+                    let result = `${intNum}이 짝수여서 성공`;
+                    fnCallback(result);
+                }else {
+                    let error = new Error(`${intNum}이 홀수여서 실패!`);
+                    fnFailureCallback(error);
+                }
+            }, 3000);
+        }
+
+        fnTemplate(fnMiddle);
+    </script>
+</body>
+</html>

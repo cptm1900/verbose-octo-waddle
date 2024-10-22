@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="resultArea"></div>
+    <button id="lazyBtn">데이터 로드(promise)</button>
+    <button id="lazyBtnAsync">데이터 로드(async)</button>
+    <script>
+        // onclick은 이벤트 1개만 설정 가능 (여러개 설정하면 마지막만 적용됨)
+        // add.EventListener는 이벤트 여러개 설정 가능
+        lazyBtnAsync.onclick = async function () {   // async가 묵시적으로 promise로 만들어줌
+            try {
+                let resp = await fetch("./data/dummy.json");   // await는 promise 안에서만 사용 가능
+                if (resp.ok) {
+                    // let obj = await resp.json();   // promise 객체가 아니라 json
+                    let { prop, number } = await resp.json(); // 구조 분해로 대입
+                    resultArea.innerHTML = `${prop}, ${number}`;
+                } else {
+                    throw new Error(`${resp.status}`);
+                }
+            }catch(err) {
+                console.error(err);
+            }
+        }
+        lazyBtn.onclick = function () {
+            let promise = fetch("./data/dummy.json");
+            console.log(promise);
+            promise.then(resp => {
+                if (resp.ok) {
+                    let innerPromise = resp.json();    // json 객체가 아니라 promise 객체
+                    console.log("in then function : ", innerPromise);
+                    return innerPromise;
+                } else {
+                    // throw 쓰지 않으면 Error 객체가 생성만 됨
+                    throw new Error(`${resp.status}`);
+                }
+                // promise chaining (언마샬링 해서 들어옴)
+                // 구조 분해
+            }).then(({ prop, number }) => resultArea.innerHTML = `${prop}, ${number}`)
+                .catch(console.error);
+        }
+    </script>
+</body>
+</html>
