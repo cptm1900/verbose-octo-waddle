@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>03/multipartDesc.jsp</title>
 </head>
-<body>
+<body data-context-path='<%=request.getContextPath()%>'>
 <h4> 멀티파트 컨텐츠</h4>
 <pre>
 	MIME : multipart/* - 한 번의 전송으로 여러 종류의 컨텐츠를 전송해야 하는 경우,
@@ -43,11 +43,23 @@
 	<button type="submit">전송</button>
 	</form>
 	<div id="result-area"></div>
+
 </body>
 <script type="text/javascript">
-	document.addEventListener("DOMContentLoaded", ()=>{
+	const contextPath = document.body.dataset.contextPath;
+
+	document.addEventListener("DOMContentLoaded", async ()=>{
 		const fileForm = document.getElementById("file-form");
 		const resultArea = document.getElementById("result-area");
+		const fnListup = list=>{
+			let href=`\${contextPath}/multipart/download.do?filename=`;
+			resultArea.innerHTML = list.map(n=>`<p><a href="\${href+n}">\${n}</a></p>`)
+										.join("\n");
+			}
+		
+		let resp = await fetch(`\${contextPath}/multipart/fileList`)
+		let list = await resp.json();
+		fnListup(list);		// 함수 호출
 		
 		fileForm.addEventListener("submit", (e)=>{
 			e.preventDefault();
@@ -65,7 +77,7 @@
 				body:body
 			})
 			.then(resp=>resp.json())
-			.then(list=>resultArea.innerHTML = list.map(n=>`<p>\${n}</p>`).join("\n"))
+			.then(fnListup)		// 함수의 레퍼런스 (함수 호출이 아님)
 			.catch(console.error)
 			.finally(()=>fileForm.reset());
 		});

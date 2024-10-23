@@ -29,22 +29,32 @@ public class CalculateServlet extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		double left = Optional.of(req.getParameter("left"))
-								.map(Double::parseDouble)
-								.get();		// required로 해서 알아서 에러 던져짐
-		double right = Optional.of(req.getParameter("right"))
-				.map(Double::parseDouble)
-				.get();
-		OperatorType operator = Optional.of(req.getParameter("operator"))
-										.map(OperatorType::valueOf)
-										.get();
+//		double left = Optional.of(req.getParameter("left"))
+//								.map(Double::parseDouble)
+//								.get();		// required로 해서 알아서 에러 던져짐
 		
-		CalculateVO calVO = new CalculateVO();
-		calVO.setLeft(left);
-		calVO.setRight(right);
-		calVO.setOperator(operator);
-		
-		resp.setContentType("application/json; charset=UTF-8");
-		new ObjectMapper().writeValue(resp.getWriter(), calVO);
+		// 유효성 검사
+		try {
+			double left = Optional.of(req.getParameter("left"))
+									.map(Double::parseDouble)
+									.get();
+			double right = Optional.of(req.getParameter("right"))
+									.map(Double::parseDouble)
+									.get();
+			OperatorType operator = Optional.of(req.getParameter("operator"))
+											.map(OperatorType::valueOf)
+											.get();
+			
+			CalculateVO calVO = new CalculateVO();
+			calVO.setLeft(left);
+			calVO.setRight(right);
+			calVO.setOperator(operator);
+			
+			resp.setContentType("application/json; charset=UTF-8");
+			new ObjectMapper().writeValue(resp.getWriter(), calVO);
+		}catch(IllegalArgumentException e) {
+			resp.sendError(HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+			return;
+		}
 	}
 }

@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -35,10 +36,42 @@
 			415 : UnSupported-Media-Type, 클라이언트가 전송한 body 컨텐츠를 서버에서 파싱할 수 없을때 표현
 			<a href="status400.jsp">400번대 테스트 페이지</a>
 		5) 5xx : Failure, 서버측 오류, 500(Internal Server Error, 서버의 정보 노출 제한)
-	2. Response Header
+	2. Response Header : setContentType, setContentLengh, setHeader(name, value) (value는 String타입)
+		1) Content-Type, Content-Length (공통 헤더) : body 의 content 에 대한 메타 데이터
+			Content-Type(body content 종류)
+			Content-Length(body content 길이)
+			<%
+				// response.setContentLength(200);	// 컨텐츠를 200바이트까지만 읽음
+			%>
+		2) Content-Disposition(공통 헤더)
+			request header : method="post", content-type="multipart/form-data"
+							body의 부분집합(part) 하나에 대한 메타데이터로 사용됨
+							ex)
+								문자 기반 파트 Content_Disposition : form-data, name="파트명"
+								파일 기반 파트 Content_Disposition : form-data, name="파트명"; filename="파일명"
+			response header ===> 수정했음
+				Content-Disposition
+				- inline(default) : 브라우저의 창 내부에서 웹 페이지의 형태로 컨텐츠 소비
+				- attachment : 다운로드 받고 저장하라는 뜻, 저장명은 filename 지시자로 결정 (안 쓰면 현재 페이지의 이름으로 전송)
+								filename 내에 특수문자나 공백이 포함된다면, url encoding 방식이나 replace 구조가 필요함
+			<%
+				String filename = "더미 1.html";
+				filename = URLEncoder.encode(filename, "UTF-8").replace("+", " ");	// 파일 이름으로 한글 쓰기 위해서 변수로 넣고 인코딩하고 공백이 +로 바뀌므로 replace
+				// response.setHeader("Content-Disposition", "inline");	// inline : 브라우저들이 자기가 가진 창 안에서 소비 (기본값)
+				response.setHeader("Content-Disposition", "attachment; filename=\""+filename+"\"");	// 첨부된 데이터(filename) 저장
+				// ""로 안 묶으면 옛날 브라우저에서는 파일 이름에 공백 안 들어가고 다르게 나옴
+			%>
+		3) Refresh(response)
+		4) Cache-Control(response)
+		5) Location(response)
 	3. Response Body(Message Body, Content Body)
 		servlet : response.getWriter(), response.getOutputStream()
 		jsp : 표현식, out 객체
 </pre>
+<form method="post" enctype="multipart/form-data">
+	<input type="text" name="param1" />
+	<input type="file" name="uploadFile" />
+	<button type="submit">전송</button>
+</form>
 </body>
 </html>
