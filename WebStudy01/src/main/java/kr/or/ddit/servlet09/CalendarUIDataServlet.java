@@ -24,6 +24,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 public class CalendarUIDataServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("=============== 캐싱 데이터 사용하지 않고 있음 ===============");
+		
 		Locale locale = req.getLocale();
 		
 		Map<String, Object> target = new HashMap<>();
@@ -44,7 +46,9 @@ public class CalendarUIDataServlet extends HttpServlet {
 		
 		target.put("zones", zones);
 		
-		resp.setContentType("application/json; charset=utf-8");
+		resp.setContentType("application/json; charset=UTF-8");
+		// 캐시 데이터를 저장해놓고 갖다쓰게 함 (10초 동안 저장하게 설정)
+		resp.setHeader("Cache-Control", "private, max-age="+10);
 		
 		ObjectWriter mapper = new ObjectMapper().writerWithDefaultPrettyPrinter();
 		

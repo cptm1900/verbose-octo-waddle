@@ -66,9 +66,9 @@ public class DownloadServlet extends HttpServlet {
 			resp.sendError(400, "폴더는 다운로드 되지 않음");
 			return;
 		}
-//		5. 다운로드 될 수 있도록 헤더 설정(Content-Disposition-attachment, filename)
+//		5. 다운로드 될 수 있도록 헤더 설정(Content-Disposition, attatchment;filename)
 		String encodedFilename = URLEncoder.encode(filename, "utf-8").replace("+"," ");	// filename에 한글 있어도 안 깨지게 하고 공백이 +로 나오므로 그걸 다시 공백으로 바꿈
-		resp.setHeader("Content-Disposition-attachment", String.format("attatchment;filename=\"%s\"", encodedFilename));
+		resp.setHeader("Content-Disposition", String.format("attatchment; filename=\"%s\"", encodedFilename));
 		// 확장자가 서버에 없으면 확인이 불가능하므로 Optional로 확인
 		String mime = Optional.ofNullable(application.getMimeType(filename))
 								.orElse("application/octet-stream");	// octet(8비트) 단위의 스트림

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. 이미 확정된 하나의 인스턴스만 생성됨
+        let obj1 = {
+            prop1 : 23,
+            prop2 : function(){},    // 객체 안에 존재하므로 함수가 아니라 메소드
+            prop3 : ()=>{}      // 메소드
+        };
+        
+        // 2. 생성자 함수 정의
+        // const Person = ()=>{     // Person is not a constructor
+        function Person() {
+            this.prop1 = 23;
+            this.prop2 = function(){}
+            this.prop3 = ()=>{}
+        }
+        let obj2 = new Person();
+        let obj3 = new Person();
+        obj3.prop1 = 1000;
+        console.log(obj2.prop1);
+
+        // 3. factory 함수 사용
+        function factoryPerson(){
+            return {  // 새로운 객체 반환
+                prop1 : 33,
+                prop2 : function(){}
+            };
+        }
+        let obj4 = factoryPerson();     // 호출하면 객체 생성되어서 반환
+        console.log(obj4.prop1);
+    </script>
+</body>
+</html>

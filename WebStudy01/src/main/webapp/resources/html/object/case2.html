@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // class Person{    // 클래스 생성하면 기본 생성자 자동으로 생성 (자바하고 똑같음)
+        //     constructor(prop1){  // 생성자(constructor)
+        //         // // if문
+        //         // if(prop1)     // prop1 존재하면 true
+        //         //     this.prop1 = prop1;    // this : 현재 객체 (obj1)
+        //         // else
+        //         //     this.prop1 = 23;
+
+        //         // // 삼항연산자
+        //         // this.prop1 = prop1 ? prop1 : 23;
+                
+        //         // null 병합 연산자
+        //         this.prop1 = prop1 ?? 23;
+        //     }     
+        //     prop2() {
+
+        //     }
+        // }
+
+        // let obj1 = new Person();
+        // //let obj1 = new Person(2300);
+        // console.log(obj1.prop1);
+        // console.log(obj1.prop2);
+
+        // 사람은 이름을 갖고 있고, 이름은 성과 이름으로 구성됨
+        // 사람은 직립 보행을 함
+        class Person{
+            constructor(firstName, lastName){
+                if(!firstName || !lastName) {
+                    throw new Error("성이나 이름 누락");
+                }
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.fullName = lastName+firstName;
+            }     
+            walk() {
+                console.log(`${this.lastName}${this.firstName}가 걷고 있음`);
+            }
+        }
+
+        let obj1 = new Person("민재","유");
+        obj1.walk();
+        console.log(obj1.fullName);
+    </script>
+</body>
+</html>

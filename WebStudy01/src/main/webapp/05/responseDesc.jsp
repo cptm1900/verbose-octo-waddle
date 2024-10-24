@@ -54,16 +54,18 @@
 				- inline(default) : 브라우저의 창 내부에서 웹 페이지의 형태로 컨텐츠 소비
 				- attachment : 다운로드 받고 저장하라는 뜻, 저장명은 filename 지시자로 결정 (안 쓰면 현재 페이지의 이름으로 전송)
 								filename 내에 특수문자나 공백이 포함된다면, url encoding 방식이나 replace 구조가 필요함
-			<%
+			
+			<%-- 주석 풀면 페이지에 내용이 안 나오고 다운로드가 됨
 				String filename = "더미 1.html";
 				filename = URLEncoder.encode(filename, "UTF-8").replace("+", " ");	// 파일 이름으로 한글 쓰기 위해서 변수로 넣고 인코딩하고 공백이 +로 바뀌므로 replace
 				// response.setHeader("Content-Disposition", "inline");	// inline : 브라우저들이 자기가 가진 창 안에서 소비 (기본값)
 				response.setHeader("Content-Disposition", "attachment; filename=\""+filename+"\"");	// 첨부된 데이터(filename) 저장
 				// ""로 안 묶으면 옛날 브라우저에서는 파일 이름에 공백 안 들어가고 다르게 나옴
-			%>
-		3) Refresh(response)
-		4) Cache-Control(response)
-		5) Location(response)
+			--%>
+		
+		3) Refresh(response) : <a href="refresh-auto-request.jsp">refresh header</a>
+		4) Cache-Control(response) : <a href="cacheControl.jsp">cacheControl header</a>
+		5) Location(response) : <a href="flowControl.jsp">flow control</a>
 	3. Response Body(Message Body, Content Body)
 		servlet : response.getWriter(), response.getOutputStream()
 		jsp : 표현식, out 객체
