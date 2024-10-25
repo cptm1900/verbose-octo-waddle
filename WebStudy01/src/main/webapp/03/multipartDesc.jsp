@@ -41,7 +41,7 @@
 	<input type="number" name="param3" />
 	<input type="file" name="uploadFile" />
 	<button type="submit">전송</button>
-	</form>
+</form>
 	<div id="result-area"></div>
 
 </body>
