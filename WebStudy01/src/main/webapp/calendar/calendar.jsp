@@ -63,6 +63,8 @@
 	LocalDate firstDisplay = firstDOM.minusDays(offset);
 %>
 
+<h1>현재 인증된 사용자 : <%=request.getUserPrincipal()%></h1>
+
 <h1>현재 시간 : <%=LocalDateTime.now(zone)%></h1>
 
 <%-- conversion --%>

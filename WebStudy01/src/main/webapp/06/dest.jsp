@@ -6,3 +6,11 @@
 <%-- 맨 위에 있는 설정 부분은 지우면 한글 깨져서 놔둬야됨 --%>
 
 최종 도착지(B) - 화면의 일부를 구성할때(페이지 모듈)
+
+<pre>
+<%
+	out.println(request.getAttribute("requestAttr"));
+	out.println(session.getAttribute("sessionAttr"));
+	out.println(application.getAttribute("applicationAttr"));
+%>
+</pre>

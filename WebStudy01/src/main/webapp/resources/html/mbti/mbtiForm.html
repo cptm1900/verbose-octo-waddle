@@ -15,7 +15,7 @@
         <select id="type" name="type" onchange="this.form.requestSubmit();">
         
         </select>
-        <button type="submit">전송</button>
+        <button type="submit" hidden>전송</button>
         <button type="button" id="del-btn">삭제</button>
     </form>
     <form id="newform" action="../../../mbti" method='post'
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", async function(){
 		let formData = new FormData(newform);
 		let resp = await fetch(url, {
 			method : method,
-			// body에 formdata를 넘기면 알아서 멀티파트로 잡아주고 urlsearchparam 넘기면 알아서 param에 맞는 타입 잡아주는데 json은 따로 잡아야줘야됨
+			// body에 FormData를 넘기면 알아서 headers의 Content-Type을 multipart/form-data로 잡아주고 URLSearchParam을 넘기면 알아서 param에 맞는 타입 잡아주는데 json은 따로 잡아야줘야됨
 			body : formData
 		});
 		if(resp.ok) {
@@ -107,6 +107,32 @@ document.addEventListener("DOMContentLoaded", async function(){
 	});
 
 	// arr = []; ==> arr = new Array();
+	
+	let delBtn = document.getElementById('del-btn');
+	delBtn.addEventListener('click', ()=>{
+		let formData = new FormData(document.querySelector('#mbtiform'));
+		let url = document.querySelector('#mbtiform').action;
+		let param = formData.get('type');
+		fetch(`${url}/${param}`, {
+			method : 'DELETE'
+		})
+		.then(resp=>resp.json())
+		.then(async data=>{
+			document.querySelector('#mbtiform').reset();
+			// 리스트 출력
+			let type = document.getElementById('type');
+			let url = document.querySelector('form').action;
+			let resp = await fetch(url);
+			let json = await resp.json();
+			document.getElementById('result-area').innerHTML = "";
+			type.innerHTML = "";
+			for(key in json) {
+				// 모든 프로그래밍 언어에서 json.key 안 되면 json[key]
+				type.insertAdjacentHTML("beforeend",`<option value="${key}">${json[key]}</option>`);
+			}
+		})
+		.catch(err=>console.log(err));
+	});
 
 });
 

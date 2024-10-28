@@ -32,7 +32,12 @@
 				// 버퍼가 방출되어도 이미 완성된 페이지이기 때문에 짤려서 가지지만 에러는 없음
 				// 버퍼가 없으면 RequestDispatch 구조 불가능
 			--%>
-		
+		<%
+			request.setAttribute("requestAttr", "요청 속성");
+			session.setAttribute("sessionAttr", "세션 속성");
+			// 서버 끄면 사라짐
+			application.setAttribute("applicationAttr", "어플리케이션 속성");
+		%>
 		<%-- 위에서처럼 하면 dest.jsp가 맨 처음에 나오고 아래서처럼 하면 나오고 싶은 위치에 나옴 --%>
 		<%-- 커스텀 태그 (액션 태그) --%>	<%-- 꺽쇠, ctrl+space --%>
 		<%-- forward는 어차피 서버에서 동작하는거라 jsp에서는 잘 안 씀 --%>
@@ -45,10 +50,10 @@
 				--> Connection close, StateLess
 			3. Location 헤더 방향으로 완전히 새로운 요청이 전송
 			4. 최종 응답 전송
-			<%--
+			<%
 				String location = request.getContextPath() + "/06/dest.jsp";
 				response.sendRedirect(location);
-			--%>
+			%>
 </pre>
 </body>
 </html>

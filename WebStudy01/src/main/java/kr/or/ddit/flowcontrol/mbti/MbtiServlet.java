@@ -37,7 +37,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @WebServlet("/mbti/*")		// /mbti/ 뒤에 아무거나 들어와도 다 받음 (아무것도 안 들어와도 받음)
 @MultipartConfig()
 public class MbtiServlet extends HttpServlet {
-	private Map<String, String> mbtiMap;
+	public Map<String, String> mbtiMap;
 	private ServletContext application;
 	private Path mbtiFolderPath;
 	
@@ -197,6 +197,8 @@ public class MbtiServlet extends HttpServlet {
 			Path delFilePath = mbtiFolderPath.resolve(type+".html");
 			boolean success = Files.deleteIfExists(delFilePath);	// 존재하면 삭제
 			// post에서 redirect하면 get으로 가는데 put이나 delete에서 redirect하면 다시 put이나 delete로 돌아와서 무한 루프가 됨
+			
+			// singletonMap은 immutable(불변)이므로 삭제, 수정이 불가능
 			Map<String, Object> target = Collections.singletonMap("delete", success ? 1 : 0);
 			resp.setContentType("application/json;charset=utf-8");
 			try(
