@@ -3,8 +3,21 @@ package kr.or.ddit.calc;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * VO(ValueObject), DTO(Data Tranfer Object), JavaBean
+ * 
+ * 1. 값을 저장할 수 있는 property 정의
+ * 	property : java bean 규칙에 따라 정의된 field
+ * 2. property에 대해 캡슐화
+ * 3. 캡슐화된 property에 접근할 수 있는 메소드 제공 (gettr / setter)
+ * 		get[set]+propertyname ==> camel case
+ * 4. jsva  bean = 객체에 대한 상태 비교 방법 제공 : equals 재정의
+ * 5. 상태를 확인할 수 있는 방법 제공 : toStirng 재정의 
+ * 6. 직렬화 가능 객체 표현
+ *
+ **/
 public class CalculateVO implements Serializable {	// 직렬화를 하려면 필요함
-	private double left;
+	private double left;	// getLeft, setLeft
 	private double right;
 	private OperatorType operator;
 	
@@ -14,7 +27,7 @@ public class CalculateVO implements Serializable {	// 직렬화를 하려면 필
 	public void setLeft(double left) {
 		this.left = left;
 	}
-	public double getRifht() {
+	public double getRight() {
 		return right;
 	}
 	public void setRight(double right) {
