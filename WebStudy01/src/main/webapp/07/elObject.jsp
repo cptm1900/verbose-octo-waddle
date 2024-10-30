@@ -76,7 +76,7 @@
 		${pageContext.session.id}, ${pageContext.session.creationTime}
 		
 	6. 요청 파라미터 객체 : param, paramValues
-	7. 요청 헤더 객체 : header, headervalues
+	7. 요청 헤더 객체 : header, headerValues
 	8. 쿠키 객체 : cookie
 	9. 컨텍스트 파라미터 객체 : initParam
 </pre>

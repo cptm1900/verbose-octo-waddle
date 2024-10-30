@@ -27,7 +27,8 @@ import kr.or.ddit.props.service.PersonServiceImpl;
  */
 @WebServlet("/props/personList.do")
 public class PersonListController extends HttpServlet {
-	private PersonService service = new PersonServiceImpl();
+	// service, dao를 싱글톤으로 안 만들면 list와 insert를 할 때 다른 service가 호출되어서 2개가 됨
+	private PersonService service = PersonServiceImpl.getInstance();
 	
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

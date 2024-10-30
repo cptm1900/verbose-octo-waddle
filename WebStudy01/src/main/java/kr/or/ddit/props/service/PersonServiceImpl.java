@@ -4,16 +4,27 @@ import java.util.List;
 
 import kr.or.ddit.props.PersonVO;
 import kr.or.ddit.props.dao.PersonDAO;
-import kr.or.ddit.props.dao.PropertiesFilePersonDAOImpl;
+import kr.or.ddit.props.dao.PersonDAOImpl;
 import kr.or.ddit.props.exception.PersonNotFoundException;
 
 public class PersonServiceImpl implements PersonService {
-	private PersonDAO dao = new PropertiesFilePersonDAOImpl();
+//	private PersonDAO dao = PropertiesFilePersonDAOImpl.getInstance();
+	private PersonDAO dao = new PersonDAOImpl();
+
+	private static PersonService instance;
+	private PersonServiceImpl() {
+		super();
+	}
+	
+	public static PersonService getInstance() {
+		if(instance==null)
+			instance = new PersonServiceImpl();
+		return instance;
+	}
 
 	@Override
 	public boolean createPerson(PersonVO person) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.insertPerson(person) > 0;
 	}
 
 	@Override
