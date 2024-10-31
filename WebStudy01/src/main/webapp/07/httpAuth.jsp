@@ -47,7 +47,7 @@
 				ex) Authorization : Baerer encrypt(base64(c001:java))
 		
 	2. 세션 기반 인증
-		FORM
+		FORM : j_username, j_password, j_security_check 등으로 WAS를 통해 인증
 </pre>
 </body>
 </html>

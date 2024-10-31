@@ -32,6 +32,9 @@ public class PersonListController extends HttpServlet {
 	
 	@Override
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			
+			System.out.println("-------------------- request filter process --------------------");
+			
 			List<PersonVO> personList = service.readPersonList();
 			
 			req.setAttribute("list", personList);

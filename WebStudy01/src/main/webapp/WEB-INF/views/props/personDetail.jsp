@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,10 +11,11 @@
 </head>
 <body>
 
-<form>
+<form action='<c:url value="/props/personUpdate.do?who=${person.id}" />' method="POST">
 	<table>
 		<thead>
 			<tr>
+				<th>아이디</th>
 				<th>이름</th>
 				<th>성별</th>
 				<th>나이</th>
@@ -24,13 +26,19 @@
 		<tbody>
 			<c:set var="person" value="${sessionScope.person}" />
 			<tr>
-				<td>${person.name}</td>
-				<td>${person.gender}</td>
-				<td>${person.age}</td>
-				<td>${person.address}</td>
+				<td><input name="id" value="${person.id}" /></td>
+				<td><input name="name" value="${person.name}" /></td>
+				<td><input name="gender" value="${person.gender}" /></td>
+				<td><input name="age" value="${person.age}" /></td>
+				<td><input name="address" value="${person.address}" /></td>
 			</tr>
 		</tbody>
 	</table>
+	<button type="submit">수정</button>
+	
+	<%-- 삭제처리 에러 해결해야됨 --%>
+	
+	<button type="button" onclick="location='<c:url value="/props/personDelete.do?who=${person.id}" />'">삭제</button>
 </form>
 
 </body>

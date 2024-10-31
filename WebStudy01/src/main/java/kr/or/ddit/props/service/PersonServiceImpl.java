@@ -42,14 +42,12 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public boolean modifyPerson(PersonVO person) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.updatePerson(person) > 0;
 	}
 
 	@Override
 	public boolean removePerson(String id) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.deleteParson(id) > 0;
 	}
 
 }
