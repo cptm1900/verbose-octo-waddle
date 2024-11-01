@@ -35,9 +35,6 @@
 		</tbody>
 	</table>
 	<button type="submit">수정</button>
-	
-	<%-- 삭제처리 에러 해결해야됨 --%>
-	
 	<button type="button" onclick="location='<c:url value="/props/personDelete.do?who=${person.id}" />'">삭제</button>
 </form>
 
